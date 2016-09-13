@@ -1,4 +1,4 @@
-# remotedebug-core-spec
+# RemoteDebug Core Protocol Specification
 Specification for the RemoteDebug Core Protocol Specification.
 
 ## The proposal
