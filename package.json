@@ -1,0 +1,22 @@
+{
+  "name": "remotedebug-core-spec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generate-core-protocol.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RemoteDebug/remotedebug-core-spec.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RemoteDebug/remotedebug-core-spec/issues"
+  },
+  "homepage": "https://github.com/RemoteDebug/remotedebug-core-spec#readme",
+  "dependencies": {
+    "request-promise": "^4.1.1"
+  }
+}
