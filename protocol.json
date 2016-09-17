@@ -5,6 +5,7 @@
   },
   "domains": [
     {
+      "domain": "Page",
       "commands": [
         {
           "name": "enable",
@@ -473,6 +474,7 @@
       ]
     },
     {
+      "domain": "Network",
       "commands": [
         {
           "name": "enable",
@@ -1128,6 +1130,7 @@
       ]
     },
     {
+      "domain": "DOM",
       "commands": [
         {
           "name": "getDocument",
@@ -2133,6 +2136,7 @@
       ]
     },
     {
+      "domain": "DOMDebugger",
       "commands": [
         {
           "name": "setDOMBreakpoint",
@@ -2248,6 +2252,7 @@
       ]
     },
     {
+      "domain": "Runtime",
       "commands": [
         {
           "name": "evaluate",
@@ -2858,6 +2863,7 @@
       ]
     },
     {
+      "domain": "Debugger",
       "commands": [
         {
           "name": "enable",
@@ -3401,6 +3407,7 @@
       ]
     },
     {
+      "domain": "Console",
       "commands": [
         {
           "name": "enable",
@@ -3540,6 +3547,7 @@
       ]
     },
     {
+      "domain": "Console",
       "commands": [
         {
           "name": "enable",
@@ -3679,6 +3687,7 @@
       ]
     },
     {
+      "domain": "DOM",
       "commands": [
         {
           "name": "getDocument",
@@ -4684,6 +4693,7 @@
       ]
     },
     {
+      "domain": "DOMDebugger",
       "commands": [
         {
           "name": "setDOMBreakpoint",
@@ -4799,6 +4809,7 @@
       ]
     },
     {
+      "domain": "Debugger",
       "commands": [
         {
           "name": "enable",
@@ -5342,6 +5353,7 @@
       ]
     },
     {
+      "domain": "Network",
       "commands": [
         {
           "name": "enable",
@@ -5997,6 +6009,7 @@
       ]
     },
     {
+      "domain": "Page",
       "commands": [
         {
           "name": "enable",
@@ -6465,6 +6478,7 @@
       ]
     },
     {
+      "domain": "Runtime",
       "commands": [
         {
           "name": "evaluate",
