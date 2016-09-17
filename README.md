@@ -21,4 +21,6 @@ This specification is using [JSON-RPC](http://www.jsonrpc.org/specification) as 
 
 ## Documentation
 
-The current [`protocol.json`](https://github.com/RemoteDebug/remotedebug-core-spec/blob/master/protocol.json) file can be fetched and viewed in tools like A, B, C and D.
+The current [`protocol.json`](https://github.com/RemoteDebug/remotedebug-core-spec/blob/master/protocol.json) file can be viewed via the [RemoteDebug Compatibility Tables](http://compatibility.remotedebug.org/), where it can be browsed and compared to other runtimes.
+
+
