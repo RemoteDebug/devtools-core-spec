@@ -121,7 +121,7 @@ function getCommonDomains(runtimes) {
   
     if (commands.length || events.length || types.length) {
       commonDomains.push({
-        domain: domainObject.name,
+        domain: domainObject.domain,
         commands: commands,
         events: events,
         types: types
