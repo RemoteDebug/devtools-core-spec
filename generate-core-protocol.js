@@ -74,11 +74,11 @@ Promise.all([fetchWebkitProtocol(), fetchChromeProtocol()]).then(protocols => {
   console.log('err', err)
 })
 
-function isNotExperimental(o) {
-  if(o.experimental === undefined || o.experimental === null || o.experimental === false) { 
-    return true
-  } else {
+function isRelevant(o) {
+  if(o.experimental || o.deprecated) { 
     return false
+  } else {
+    return true
   }
 }
 
@@ -91,14 +91,14 @@ function getCommonObjects(runtimes, domainName, typeName, propertyName) {
     var protocol = runtimes[runtimeName]
     var domain = _.find(protocol.domains, { domain: domainName })
 
-    if(domain && domain[typeName] && isNotExperimental(domain)) {
+    if(domain && domain[typeName] && isRelevant(domain)) {
       pool.push(domain[typeName])
     } 
   })
 
   pool.forEach( p => {
     p.forEach(i => {
-      if(isNotExperimental(i[propertyName])) {
+      if(isRelevant(i[propertyName])) {
         if(seenList.has(i[propertyName])) { // Only add common stuff
           commonList.set(i[propertyName], i)
         } else {
