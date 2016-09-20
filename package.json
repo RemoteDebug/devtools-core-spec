@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/RemoteDebug/remotedebug-core-spec#readme",
   "dependencies": {
+    "lodash": "^4.16.0",
     "request-promise": "^4.1.1"
   }
 }
