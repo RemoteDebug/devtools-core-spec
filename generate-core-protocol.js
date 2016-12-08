@@ -8,7 +8,7 @@ var fetchChromeProtocol = () => {
 
   return new Promise((resolve, reject) => {
     var protocol = {
-      version: { "major": "1", "minor": "2" },
+      version: { 'major': '1', 'minor': '2' },
       domains: []
     }
 
@@ -35,108 +35,50 @@ var fetchChromeProtocol = () => {
   })
 }
 
-var fetchWebkitProtocol = () => {
-  return new Promise((resolve, reject) => {
-    var url = 'https://raw.githubusercontent.com/WebKit/webkit/master/Source/WebInspectorUI/Versions/Inspector-iOS-10.0.json'
-    
-    request(url).then(body => {
-      resolve(JSON.parse(body))
-    }).catch(reject)
+fetchChromeProtocol().then(chromeProtocol => {
+
+  var domainList = []
+
+  var seenList = new Map()
+
+  // Filter domains
+  chromeProtocol.domains.forEach(domain => {
+    if (isRelevant(domain)) {
+      domainList.push(domain)
+    }
   })
-}
 
-Promise.all([fetchWebkitProtocol(), fetchChromeProtocol()]).then(protocols => {
+  // Filter commands, events and types
+  domainList.forEach(domain => {
+    domain.commands = domain.commands.filter(c => isRelevant(c) ? c : false)
 
-  var runtimes = {
-    'chrome': protocols[1],
-    'webkit': protocols[0],
-  }
+    if (domain.events) {
+      domain.events = domain.events.filter(c => isRelevant(c) ? c : false)
+    }
 
-  var commonDomains = getCommonDomains(runtimes)
-  
-  var commonProtocol = {
-    version: {
-      major: 1,
-      minor: 0
-    },
-    domains: commonDomains
-  }
+    if (domain.types) {
+      domain.types = domain.types.filter(c => isRelevant(c) ? c : false)
+    }
+  })
 
-  fs.writeFile('protocol.json', JSON.stringify(commonProtocol, null, 2), function (err) {
+  var protocol = chromeProtocol
+  protocol.domains = domainList
+
+  fs.writeFile('protocol.json', JSON.stringify(protocol, null, 2), function (err) {
     if (err) {
       console.log(err)
     } else {
       console.log('Core Protocol JSON file generated')
     }
   })
-
 }).catch(err => {
   console.log('err', err)
 })
 
-function isRelevant(o) {
-  if(o.experimental || o.deprecated) { 
+function isRelevant (o) {
+  if (o.experimental || o.deprecated) {
     return false
   } else {
     return true
   }
-}
-
-function getCommonObjects(runtimes, domainName, typeName, propertyName) {
-  var pool = []
-  var commonList = new Map()
-  var seenList = new Map()
-
-  Object.keys(runtimes).forEach((runtimeName) => {
-    var protocol = runtimes[runtimeName]
-    var domain = _.find(protocol.domains, { domain: domainName })
-
-    if(domain && domain[typeName] && isRelevant(domain)) {
-      pool.push(domain[typeName])
-    } 
-  })
-
-  pool.forEach( p => {
-    p.forEach(i => {
-      if(isRelevant(i[propertyName])) {
-        if(seenList.has(i[propertyName])) { // Only add common stuff
-          commonList.set(i[propertyName], i)
-        } else {
-          seenList.set(i[propertyName], i)
-        }
-      }
-    })
-  })
-  return Array.from(commonList.values()) 
-}
-
-function getCommonDomains(runtimes) {
-  var domains = getDomains(runtimes)
-  var commonDomains = []
-
-  domains.forEach((domainObject) => {
-    let commands = getCommonObjects(runtimes, domainObject.domain, 'commands', 'name')
-    let events = getCommonObjects(runtimes, domainObject.domain, 'events', 'name')
-    let types = getCommonObjects(runtimes, domainObject.domain, 'types', 'id')
-  
-    if (commands.length || events.length || types.length) {
-      commonDomains.push({
-        domain: domainObject.domain,
-        commands: commands,
-        events: events,
-        types: types
-      })
-    }
-  })
-
-  return commonDomains
-}
-
-function getDomains (runtimes) {
-  var domains = []
-  Object.keys(runtimes).forEach((runtimeName) => {
-    var protocol = runtimes[runtimeName]
-    domains.push(...protocol.domains)
-  })
-  return domains.sort()
 }
